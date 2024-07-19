@@ -18,7 +18,7 @@ jobs:
         run: sudo chmod 600 TeraKey.pem
 
       - name: copy files to server 
-        run: scp -o StrictHostKeyChecking=no -i TeraKey.pem -r * ec2-user@44.195.78.249:/home/ec2-user/projectD
+        run: scp -o StrictHostKeyChecking=no -i TeraKey.pem -r * ec2-user@3.237.94.126:/home/ec2-user/projectD
 
       - name: Trigger depl script
-        run: ssh -o StrictHostKeyChecking=no -i TeraKey.pem  ec2-user@44.195.78.249 nohup /home/ec2-user/projectD/node.sh &
+        run: ssh -o StrictHostKeyChecking=no -i TeraKey.pem  ec2-user@3.237.94.126  nohup /home/ec2-user/projectD/node.sh &
