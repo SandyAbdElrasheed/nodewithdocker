@@ -1,0 +1,33 @@
+name: Build Node.js App with docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+    #  - name: Set up Node.js
+    #   uses: actions/setup-node@v2
+    #    with:
+    #     node-version: '18'
+
+    #  - name: Install dependencies
+    #   run: sudo npm install
+    # - name: Build Docker Image   
+    #    run: docker build -t my-node-app .
+
+      - name: permission adjust 
+        run: sudo chmod 600 TeraKey.pem
+
+      - name: copy files to server 
+        run: scp -o StrictHostKeyChecking=no -i TeraKey.pem -r * ec2-user@44.195.78.249:/home/ec2-user/projectD
+
+      - name: Trigger depl script
+        run: ssh -o StrictHostKeyChecking=no -i TeraKey.pem  ec2-user@44.195.78.249 nohup /home/ec2-user/projectD/node.sh &
